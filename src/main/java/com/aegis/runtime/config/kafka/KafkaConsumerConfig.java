@@ -27,6 +27,12 @@ public class KafkaConsumerConfig {
     @Value("${spring.kafka.consumer.auto-offset-reset:earliest}")
     private String autoOffsetReset;
 
+    @Value("${spring.kafka.listener.auto-startup:false}")
+    private boolean kafkaListenerAutoStartup;
+
+    @Value("${spring.kafka.listener.missing-topics-fatal:false}")
+    private boolean missingTopicsFatal;
+
     @Bean
     public ConsumerFactory<String, RuntimeEvent> consumerFactory() {
         Map<String, Object> consumerProperties = new HashMap<>();
@@ -50,6 +56,8 @@ public class KafkaConsumerConfig {
         ConcurrentKafkaListenerContainerFactory<String, RuntimeEvent> factory =
                 new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(consumerFactory);
+        factory.setAutoStartup(kafkaListenerAutoStartup);
+        factory.getContainerProperties().setMissingTopicsFatal(missingTopicsFatal);
         return factory;
     }
 }
