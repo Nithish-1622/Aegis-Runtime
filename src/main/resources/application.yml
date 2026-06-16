@@ -18,17 +18,24 @@ spring:
     locations: classpath:db/migration
     baseline-on-migrate: true
   kafka:
-    bootstrap-servers: localhost:9092
+    bootstrap-servers: localhost:19092
     listener:
-      auto-startup: ${KAFKA_LISTENER_AUTO_STARTUP:false}
+      auto-startup: ${KAFKA_LISTENER_AUTO_STARTUP:true}
       missing-topics-fatal: false
     consumer:
       group-id: runtime-intelligence-group
       auto-offset-reset: earliest
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      key-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
       properties:
         spring:
+          deserializer:
+            key:
+              delegate:
+                class: org.apache.kafka.common.serialization.StringDeserializer
+            value:
+              delegate:
+                class: org.springframework.kafka.support.serializer.JsonDeserializer
           json:
             trusted:
-              packages: "*"
+              packages: "com.aegis.runtime.contracts"
