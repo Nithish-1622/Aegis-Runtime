@@ -1,0 +1,36 @@
+services:
+  aegis-zookeeper:
+    image: confluentinc/cp-zookeeper:7.4.0
+    container_name: aegis-zookeeper
+
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+
+    ports:
+      - "22181:2181"
+
+  aegis-kafka:
+    image: confluentinc/cp-kafka:7.4.0
+    container_name: aegis-kafka
+
+    depends_on:
+      - aegis-zookeeper
+
+    ports:
+      - "19092:19092"
+
+    environment:
+      KAFKA_BROKER_ID: 101
+
+      KAFKA_ZOOKEEPER_CONNECT: aegis-zookeeper:2181
+
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT
+
+      KAFKA_LISTENERS: INTERNAL://0.0.0.0:9092,EXTERNAL://0.0.0.0:19092
+
+      KAFKA_ADVERTISED_LISTENERS: INTERNAL://aegis-kafka:9092,EXTERNAL://localhost:19092
+
+      KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
+
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1

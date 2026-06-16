@@ -1,0 +1,39 @@
+{
+  "info": {
+    "_postman_id": "b0b8d9a5-9d1f-4f7e-8b45-0ce0f7b7ad61",
+    "name": "Aegis Runtime - Trace Reconstruction",
+    "description": "Collection for Phase 3 trace reconstruction endpoint.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Get Runtime Timeline",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/runtime/timeline/{{traceId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "runtime",
+            "timeline",
+            "{{traceId}}"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080"
+    },
+    {
+      "key": "traceId",
+      "value": "replace-with-trace-id"
+    }
+  ]
+}
