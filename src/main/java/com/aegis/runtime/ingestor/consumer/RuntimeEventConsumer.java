@@ -19,12 +19,7 @@ public class RuntimeEventConsumer {
 
     @KafkaListener(topics = "runtime.events", groupId = "${spring.kafka.consumer.group-id}")
     public void consume(RuntimeEvent event) {
-        log.info(
-                "Received Runtime Event:\nRuntimeEvent(eventId={}, traceId={}, serviceName={}, eventType={})",
-                event.eventId(),
-                event.traceId(),
-                event.serviceName(),
-                event.eventType());
+        log.info("EVENT RECEIVED -> {}", event.eventId());
         runtimeEventPersistenceService.save(event);
     }
 }

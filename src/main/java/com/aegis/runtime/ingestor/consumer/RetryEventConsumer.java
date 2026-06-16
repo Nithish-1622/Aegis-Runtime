@@ -20,12 +20,7 @@ public class RetryEventConsumer {
 
     @KafkaListener(topics = "runtime.retries", groupId = "${spring.kafka.consumer.group-id}")
     public void consumeRetry(RuntimeEvent event) {
-        log.warn(
-                "Retry Event Received: RuntimeEvent(eventId={}, traceId={}, serviceName={}, eventType={})",
-                event.eventId(),
-                event.traceId(),
-                event.serviceName(),
-                event.eventType());
+        log.warn("EVENT RECEIVED -> {}", event.eventId());
         runtimeEventPersistenceService.save(event);
     }
 }

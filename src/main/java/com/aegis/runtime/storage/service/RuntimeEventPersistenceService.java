@@ -25,9 +25,10 @@ public class RuntimeEventPersistenceService {
 
     public void save(RuntimeEvent runtimeEvent) {
         try {
+            log.info("Persisting Event -> {}", runtimeEvent.eventId());
             RuntimeEventEntity entity = runtimeEventMapper.toEntity(runtimeEvent);
             runtimeEventRepository.save(entity);
-            log.info("Persisted runtime event {}", runtimeEvent.eventId());
+            log.info("Persisted Event -> {}", runtimeEvent.eventId());
         } catch (Exception exception) {
             log.error("Failed to persist runtime event {}", runtimeEvent.eventId(), exception);
         }

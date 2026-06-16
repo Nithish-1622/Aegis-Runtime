@@ -20,12 +20,7 @@ public class HeartbeatConsumer {
 
     @KafkaListener(topics = "runtime.heartbeats", groupId = "${spring.kafka.consumer.group-id}")
     public void consumeHeartbeat(RuntimeEvent event) {
-        log.info(
-                "Heartbeat Event Received: RuntimeEvent(eventId={}, serviceName={}, instanceId={}, eventType={})",
-                event.eventId(),
-                event.serviceName(),
-                event.instanceId(),
-                event.eventType());
+        log.info("EVENT RECEIVED -> {}", event.eventId());
         runtimeEventPersistenceService.save(event);
     }
 }

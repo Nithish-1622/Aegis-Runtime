@@ -19,12 +19,7 @@ public class ErrorEventConsumer {
 
     @KafkaListener(topics = "runtime.errors", groupId = "${spring.kafka.consumer.group-id}")
     public void consumeError(RuntimeEvent event) {
-        log.error(
-                "Runtime Error Event Received: RuntimeEvent(eventId={}, traceId={}, serviceName={}, eventType={})",
-                event.eventId(),
-                event.traceId(),
-                event.serviceName(),
-                event.eventType());
+        log.error("EVENT RECEIVED -> {}", event.eventId());
         runtimeEventPersistenceService.save(event);
     }
 }
