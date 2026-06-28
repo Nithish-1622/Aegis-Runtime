@@ -24,6 +24,54 @@
         }
       },
       "response": []
+    },
+    {
+      "name": "Get Execution Graph",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/runtime/graph/{{traceId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "runtime",
+            "graph",
+            "{{traceId}}"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Example Graph Response",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/runtime/graph/{{traceId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "runtime",
+                "graph",
+                "{{traceId}}"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"traceId\": \"trace-001\",\n  \"statistics\": {\n    \"nodeCount\": 4,\n    \"edgeCount\": 3,\n    \"requestCount\": 1,\n    \"serviceCount\": 1,\n    \"retryCount\": 1,\n    \"errorCount\": 1,\n    \"maxDepth\": 3\n  },\n  \"nodes\": [\n    {\n      \"id\": \"span-req\",\n      \"label\": \"payment-service\",\n      \"type\": \"REQUEST\",\n      \"timestamp\": \"2026-06-16T10:00:00Z\",\n      \"metadata\": {\n        \"serviceName\": \"payment-service\",\n        \"eventType\": \"REQUEST_STARTED\",\n        \"status\": \"IN_PROGRESS\",\n        \"latency\": \"PT0.005S\",\n        \"instanceId\": \"inst-1\"\n      }\n    }\n  ],\n  \"edges\": [\n    {\n      \"source\": \"span-req\",\n      \"target\": \"span-svc\",\n      \"type\": \"CALLS\"\n    }\n  ]\n}"
+        }
+      ]
     }
   ],
   "variable": [
