@@ -1,8 +1,6 @@
 package com.aegis.runtime.contracts;
-
 import java.time.Duration;
 import java.time.Instant;
-
 public record RuntimeEvent(
         String eventId,
         String traceId,

@@ -24,6 +24,25 @@
         }
       },
       "response": []
+    },
+    {
+      "name": "Get Execution Graph",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/runtime/graph/{{traceId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "runtime",
+            "graph",
+            "{{traceId}}"
+          ]
+        }
+      },
+      "response": []
     }
   ],
   "variable": [
