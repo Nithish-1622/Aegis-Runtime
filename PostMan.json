@@ -1,13 +1,14 @@
 {
   "info": {
     "_postman_id": "b0b8d9a5-9d1f-4f7e-8b45-0ce0f7b7ad61",
-    "name": "Aegis Runtime - Trace Reconstruction",
-    "description": "Collection for Phase 3 trace reconstruction endpoint.",
+    "name": "Aegis Runtime - Trace Reconstruction and Analytics",
+    "description": "Collection for Runtime Timeline, Execution Graph, and Analytics endpoints.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
     {
       "name": "Get Runtime Timeline",
+      "description": "Returns the ordered runtime timeline for a traceId using persisted RuntimeEvents.",
       "request": {
         "method": "GET",
         "header": [],
@@ -27,6 +28,7 @@
     },
     {
       "name": "Get Execution Graph",
+      "description": "Returns the semantic execution graph for a traceId including nodes, edges, and statistics.",
       "request": {
         "method": "GET",
         "header": [],
@@ -72,6 +74,104 @@
           "body": "{\n  \"traceId\": \"trace-001\",\n  \"statistics\": {\n    \"nodeCount\": 4,\n    \"edgeCount\": 3,\n    \"requestCount\": 1,\n    \"serviceCount\": 1,\n    \"retryCount\": 1,\n    \"errorCount\": 1,\n    \"maxDepth\": 3\n  },\n  \"nodes\": [\n    {\n      \"id\": \"span-req\",\n      \"label\": \"payment-service\",\n      \"type\": \"REQUEST\",\n      \"timestamp\": \"2026-06-16T10:00:00Z\",\n      \"metadata\": {\n        \"serviceName\": \"payment-service\",\n        \"eventType\": \"REQUEST_STARTED\",\n        \"status\": \"IN_PROGRESS\",\n        \"latency\": \"PT0.005S\",\n        \"instanceId\": \"inst-1\"\n      }\n    }\n  ],\n  \"edges\": [\n    {\n      \"source\": \"span-req\",\n      \"target\": \"span-svc\",\n      \"type\": \"CALLS\"\n    }\n  ]\n}"
         }
       ]
+    },
+    {
+      "name": "Get Runtime Metrics",
+      "description": "Returns global runtime analytics such as total requests, success/failure counts, and latency percentiles.",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/runtime/metrics",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "runtime",
+            "metrics"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Example Runtime Metrics Response",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/runtime/metrics",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "runtime",
+                "metrics"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"totalRequests\": 1260,\n  \"successfulRequests\": 1211,\n  \"failedRequests\": 49,\n  \"averageLatency\": 42.1,\n  \"minLatency\": 4,\n  \"maxLatency\": 812,\n  \"p50Latency\": 38,\n  \"p95Latency\": 123,\n  \"p99Latency\": 311\n}"
+        }
+      ]
+    },
+    {
+      "name": "Get Service Latency",
+      "description": "Returns latency and success/failure rates for one serviceName. Example: payment-service.",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/runtime/services/{{serviceName}}/latency",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "runtime",
+            "services",
+            "{{serviceName}}",
+            "latency"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Example Service Latency Response",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/runtime/services/{{serviceName}}/latency",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "runtime",
+                "services",
+                "{{serviceName}}",
+                "latency"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"serviceName\": \"payment-service\",\n  \"requestCount\": 620,\n  \"averageLatency\": 56,\n  \"minLatency\": 7,\n  \"maxLatency\": 511,\n  \"p50Latency\": 48,\n  \"p95Latency\": 102,\n  \"p99Latency\": 250,\n  \"successRate\": 98.2,\n  \"failureRate\": 1.8\n}"
+        }
+      ]
     }
   ],
   "variable": [
@@ -82,6 +182,10 @@
     {
       "key": "traceId",
       "value": "replace-with-trace-id"
+    },
+    {
+      "key": "serviceName",
+      "value": "payment-service"
     }
   ]
 }
