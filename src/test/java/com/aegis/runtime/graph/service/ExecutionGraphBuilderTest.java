@@ -1,8 +1,12 @@
 package com.aegis.runtime.graph.service;
+import java.time.Duration;
+import java.time.Instant;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Test;
 
 import com.aegis.runtime.contracts.EventStatus;
 import com.aegis.runtime.contracts.EventType;
@@ -10,10 +14,6 @@ import com.aegis.runtime.contracts.RuntimeEvent;
 import com.aegis.runtime.graph.model.ExecutionGraph;
 import com.aegis.runtime.graph.model.GraphEdgeType;
 import com.aegis.runtime.graph.model.GraphNodeType;
-import java.time.Duration;
-import java.time.Instant;
-import java.util.List;
-import org.junit.jupiter.api.Test;
 
 class ExecutionGraphBuilderTest {
 
