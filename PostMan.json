@@ -266,6 +266,53 @@
           "body": "{\n  \"services\": [\n    {\n      \"serviceName\": \"order-service\",\n      \"requestCount\": 420\n    },\n    {\n      \"serviceName\": \"payment-service\",\n      \"requestCount\": 418\n    }\n  ],\n  \"dependencies\": [\n    {\n      \"source\": \"order-service\",\n      \"target\": \"payment-service\",\n      \"callCount\": 418\n    },\n    {\n      \"source\": \"payment-service\",\n      \"target\": \"inventory-service\",\n      \"callCount\": 418\n    }\n  ]\n}"
         }
       ]
+    },
+    {
+      "name": "Get Runtime Anomalies",
+      "description": "Returns rule-based runtime anomalies with severity counts and metadata for detected issues.",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/runtime/anomalies",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "runtime",
+            "anomalies"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Example Runtime Anomalies Response",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/runtime/anomalies",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "runtime",
+                "anomalies"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"totalAnomalies\": 3,\n  \"critical\": 1,\n  \"high\": 1,\n  \"medium\": 1,\n  \"low\": 0,\n  \"anomalies\": [\n    {\n      \"anomalyId\": \"1e5b6f7f-9f67-4d5e-8d3d-2d9a1cf1b2a1\",\n      \"traceId\": \"trace-001\",\n      \"serviceName\": \"payment-service\",\n      \"type\": \"HIGH_LATENCY\",\n      \"severity\": \"MEDIUM\",\n      \"description\": \"Observed latency exceeded configured threshold.\",\n      \"detectedAt\": \"2026-06-20T10:45:30Z\",\n      \"metadata\": {\n        \"observedLatency\": 812,\n        \"threshold\": 500\n      }\n    }\n  ]\n}"
+        }
+      ]
     }
   ],
   "variable": [

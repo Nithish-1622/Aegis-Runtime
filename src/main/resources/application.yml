@@ -17,6 +17,11 @@ spring:
     enabled: true
     locations: classpath:db/migration
     baseline-on-migrate: true
+  anomaly:
+    high-latency-threshold-ms: 500
+    retry-amplification-threshold: 1.5
+    thread-timeout-seconds: 60
+    service-saturation-request-threshold: 1000
   kafka:
     bootstrap-servers: localhost:19092
     listener:
