@@ -172,6 +172,100 @@
           "body": "{\n  \"serviceName\": \"payment-service\",\n  \"requestCount\": 620,\n  \"averageLatency\": 56,\n  \"minLatency\": 7,\n  \"maxLatency\": 511,\n  \"p50Latency\": 48,\n  \"p95Latency\": 102,\n  \"p99Latency\": 250,\n  \"successRate\": 98.2,\n  \"failureRate\": 1.8\n}"
         }
       ]
+    },
+    {
+      "name": "Get Retry Analysis",
+      "description": "Returns retry intelligence including retry counts, amplification factor, retry chains, and services with retries.",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/runtime/retries",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "runtime",
+            "retries"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Example Retry Analysis Response",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/runtime/retries",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "runtime",
+                "retries"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"totalRetries\": 42,\n  \"retryChains\": 18,\n  \"retryAmplificationFactor\": 1.18,\n  \"servicesWithRetries\": [\n    \"payment-service\",\n    \"inventory-service\"\n  ],\n  \"longestRetryChain\": 4,\n  \"maxRetriesPerRequest\": 3\n}"
+        }
+      ]
+    },
+    {
+      "name": "Get Service Topology",
+      "description": "Returns discovered service-to-service dependencies and request counts as a topology view.",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/runtime/topology",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "runtime",
+            "topology"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Example Topology Response",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/runtime/topology",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "runtime",
+                "topology"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"services\": [\n    {\n      \"serviceName\": \"order-service\",\n      \"requestCount\": 420\n    },\n    {\n      \"serviceName\": \"payment-service\",\n      \"requestCount\": 418\n    }\n  ],\n  \"dependencies\": [\n    {\n      \"source\": \"order-service\",\n      \"target\": \"payment-service\",\n      \"callCount\": 418\n    },\n    {\n      \"source\": \"payment-service\",\n      \"target\": \"inventory-service\",\n      \"callCount\": 418\n    }\n  ]\n}"
+        }
+      ]
     }
   ],
   "variable": [
