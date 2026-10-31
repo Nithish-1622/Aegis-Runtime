@@ -14,9 +14,9 @@
 	<groupId>dev.nith</groupId>
 	<artifactId>demo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name/>
-	<description/>
-	<url/>
+	<name>Aegis Runtime Intelligence</name>
+	<description>Runtime intelligence analytics for the Aegis suite: consumes telemetry events from Kafka, reconstructs request timelines, builds service dependency graphs, and detects anomalies.</description>
+	<url>https://github.com/Nithish-1622/Aegis-Runtime</url>
 
 	<licenses>
 		<license/>
@@ -27,11 +27,24 @@
 	</developers>
 
 	<scm>
-		<connection/>
-		<developerConnection/>
-		<tag/>
-		<url/>
+		<connection>scm:git:https://github.com/Nithish-1622/Aegis-Runtime.git</connection>
+		<developerConnection>scm:git:ssh://git@github.com/Nithish-1622/Aegis-Runtime.git</developerConnection>
+		<tag>HEAD</tag>
+		<url>https://github.com/Nithish-1622/Aegis-Runtime</url>
 	</scm>
+
+	<distributionManagement>
+		<repository>
+			<id>github</id>
+			<name>GitHub Packages — Aegis Runtime (releases)</name>
+			<url>https://maven.pkg.github.com/Nithish-1622/Aegis-Runtime</url>
+		</repository>
+		<snapshotRepository>
+			<id>github</id>
+			<name>GitHub Packages — Aegis Runtime (snapshots)</name>
+			<url>https://maven.pkg.github.com/Nithish-1622/Aegis-Runtime</url>
+		</snapshotRepository>
+	</distributionManagement>
 
 	<properties>
 		<java.version>25</java.version>
@@ -109,7 +122,32 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
 					<mainClass>com.aegis.runtime.RuntimeIntelligenceApplication</mainClass>
+					<!-- thin jar stays the main artifact (importable); fat jar is attached as -boot.jar -->
+					<classifier>boot</classifier>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>3.3.1</version>
+				<configuration><skipIfEmpty>true</skipIfEmpty></configuration>
+				<executions>
+					<execution><id>attach-sources</id><goals><goal>jar-no-fork</goal></goals></execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>3.11.2</version>
+				<configuration>
+					<release>${java.version}</release>
+					<doclint>none</doclint>
+					<quiet>true</quiet>
+					<failOnError>false</failOnError>
+				</configuration>
+				<executions>
+					<execution><id>attach-javadocs</id><goals><goal>jar</goal></goals></execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
